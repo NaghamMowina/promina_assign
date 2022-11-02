@@ -22,72 +22,147 @@ class _LoginScreenState extends State<LoginScreen> {
             image: DecorationImage(
                 image: AssetImage('assets/images/login.png'),
                 fit: BoxFit.cover)),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: size.height * 0.6,
-              width: size.width * 0.65,
-              child: Column(
-                children: [
-                  TextUtils(
-                    text: 'LOG IN',
-                    fontFamily: 'SegoeUI',
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _emailcontroller,
-                    validator: (value) =>
-                        value!.isEmpty ? 'enter a valid username' : null,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    //This will obscure text dynamically
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Username',
-                      // hintText: 'Enter your email or phone',
-                      // Here is key idea
-                      fillColor: Colors.grey[300],
-                      filled: true,
-                      labelStyle: const TextStyle(
-                        decorationColor: Colors.black,
-                        // fontSize: 16,
-                        color: Colors.grey,
+        child: ListView(
+          padding: EdgeInsets.symmetric(vertical: size.height * .3),
+          // mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextUtils(
+              text: 'My\nGallery',
+              fontFamily: 'SegoeUI',
+              align: TextAlign.center,
+              fontWeight: FontWeight.bold,
+              fontSize: 35,
+            ),
+            SizedBox(
+              height: size.height * .03,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: size.height * 0.5,
+                  width: size.width * 0.65,
+                  child: Column(
+                    children: [
+                      TextUtils(
+                        text: 'LOG IN',
+                        fontFamily: 'SegoeUI',
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10),
+                      SizedBox(
+                        height: size.height * 0.05,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _emailcontroller,
+                        validator: (value) =>
+                            value!.isEmpty ? 'enter a valid username' : null,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                        //This will obscure text dynamically
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(5),
+                          labelText: 'User Name',
+
+                          // hintText: 'Enter your email or phone',
+                          // Here is key idea
+                          fillColor: Colors.grey[100],
+                          filled: true,
+                          labelStyle: const TextStyle(
+                            decorationColor: Colors.black,
+                            // fontSize: 16,
+                            fontFamily: 'SegoeUI',
+
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10),
+                      SizedBox(height: 20,),
+                      TextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: _passwordcontroller,
+                        validator: (value) =>
+                            value!.isEmpty ? 'enter a valid password' : null,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                        //This will obscure text dynamically
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(5),
+                          labelText: 'Password',
+
+                          // hintText: 'Enter your email or phone',
+                          // Here is key idea
+                          fillColor: Colors.grey[100],
+                          filled: true,
+                          labelStyle: const TextStyle(
+                            decorationColor: Colors.black,
+                            // fontSize: 16,
+                            fontFamily: 'SegoeUI',
+
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
                       ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
+                      SizedBox(height: size.height*.02,),
+                      SizedBox(width: size.width*.6,child: ElevatedButton(style: ElevatedButton.styleFrom(shape:RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),),onPressed: (){}, child: TextUtils(text: 'SUBMIT',fontWeight: FontWeight.bold,fontSize: 16,)))
+                    ],
                   ),
-                ],
+                ).frosted(
+                  blur: 10,
+                  borderRadius: BorderRadius.circular(20),
+                  padding: EdgeInsets.all(8),
+                ),
               ),
-            ).frosted(
-              blur: 10,
-              borderRadius: BorderRadius.circular(20),
-              padding: EdgeInsets.all(8),
             ),
-          ),
+          ],
         ),
       ),
     );
