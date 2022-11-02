@@ -1,6 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
-import 'package:promina_assign/utils/text_widget.dart';
+import 'package:promina_assign/res/text_widget.dart';
+import 'package:promina_assign/view/home/home_screen.dart';
+import 'package:promina_assign/view_model/login_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -13,6 +15,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
 
   final TextEditingController _passwordcontroller = TextEditingController();
+  LoginViewModel loginViewModel = LoginViewModel();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,15 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
               fontSize: 35,
             ),
             SizedBox(
-              height: size.height * .03,
+              height: size.height * .01,
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  height: size.height * 0.5,
-                  width: size.width * 0.65,
+                  height: size.height * 0.37,
+                  width: size.width * 0.68,
                   child: Column(
                     children: [
                       TextUtils(
@@ -101,7 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextFormField(
                         keyboardType: TextInputType.visiblePassword,
                         controller: _passwordcontroller,
@@ -149,10 +155,36 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: size.height*.02,),
-                      SizedBox(width: size.width*.6,child: ElevatedButton(style: ElevatedButton.styleFrom(shape:RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),),onPressed: (){}, child: TextUtils(text: 'SUBMIT',fontWeight: FontWeight.bold,fontSize: 16,)))
+                      SizedBox(
+                        height: size.height * .04,
+                      ),
+                      SizedBox(
+                          width: size.width * .6,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF7BB3FF),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              onPressed: () {
+                                loginViewModel
+                                    .loginApi(_emailcontroller.text,
+                                        _passwordcontroller.text)
+                                    .then((value) {
+                                  value == true
+                                      ? Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen()))
+                                      : null;
+                                });
+                              },
+                              child: TextUtils(
+                                text: 'SUBMIT',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              )))
                     ],
                   ),
                 ).frosted(
