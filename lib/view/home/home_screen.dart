@@ -1,9 +1,14 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:promina_assign/res/text_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/response/status.dart';
 import '../../view_model/home_view_model.dart';
+import '../auth/login_screen.dart';
+import 'image_pick_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  void _handleURLButtonPress(BuildContext context, var type) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ImagePickOptions(type)));
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   colorFilter: ColorFilter.mode(
                       Color.fromARGB(255, 220, 166, 230).withOpacity(0.2),
                       BlendMode.dstATop),
-                  image: AssetImage('assets/images/Vector2.png'),
+                  image: AssetImage('assets/images/home.png'),
                   scale: 3,
                   fit: BoxFit.cover)),
           child: Stack(
@@ -58,38 +68,142 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset('assets/images/logoutIcon.png'),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            TextUtils(text: 'log out')
-                          ],
+                      GestureDetector(
+                        onTap: () async {
+                          final prefs = await SharedPreferences.getInstance();
+                          prefs.clear();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const LoginScreen()));
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset('assets/images/logoutIcon.png'),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              TextUtils(text: 'log out')
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset('assets/images/uploadIcon.png'),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            TextUtils(text: 'Upload')
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: Colors.transparent,
+                                content: Container(
+                                  height: size.height * .3,
+                                  width: size.width * .5,
+                                  // color: Colors.white,
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            _handleURLButtonPress(
+                                                context, ImageSource.gallery);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                color: Color(0xFFF2BFE7),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/gallery.png',
+                                                  height: 50,
+                                                  width: 50,
+                                                ),
+                                                // SizedBox(
+                                                //   width: 10,
+                                                // ),
+                                                TextUtils(
+                                                  text: 'Gallery',
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'BalooThambi',
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            _handleURLButtonPress(
+                                                context, ImageSource.camera);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                color: Colors.blue[50],
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/camera.png',
+                                                  height: 50,
+                                                  width: 50,
+                                                ),
+                                                // SizedBox(
+                                                //   width: 10,
+                                                // ),
+                                                TextUtils(
+                                                  text: 'Camera',
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'BalooThambi',
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ]),
+                                ).frosted(
+                                  blur: 10,
+                                  borderRadius: BorderRadius.circular(20),
+                                  padding: EdgeInsets.all(8),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset('assets/images/uploadIcon.png'),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              TextUtils(text: 'Upload')
+                            ],
+                          ),
                         ),
                       )
                     ],

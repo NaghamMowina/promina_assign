@@ -116,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           color: Colors.black,
                         ),
+                        obscureText: true,
                         //This will obscure text dynamically
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(5),

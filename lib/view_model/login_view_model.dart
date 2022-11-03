@@ -43,6 +43,7 @@ class LoginViewModel with ChangeNotifier {
       await _loginRepo.login(email, password).then((value) async {
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('token', 'Bearer ${value.token}');
+        prefs.setBool('logged', true);
 
         // setLogin(ApiResponse.completed(value));
       });

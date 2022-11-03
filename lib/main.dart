@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:promina_assign/view/auth/login_screen.dart';
+import 'package:promina_assign/view/splash_screen.dart';
 import 'package:promina_assign/view_model/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: LoginScreen(),
+        home: SplashScreen(),
       ),
     );
   }
